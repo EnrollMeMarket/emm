@@ -1,0 +1,6 @@
+.idea
+Market.iml
+target/
+src/main/frontend/.tmp
+src/main/frontend/bower_components
+src/main/frontend/node_modules

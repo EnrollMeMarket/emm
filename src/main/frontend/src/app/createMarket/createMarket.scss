@@ -1,0 +1,102 @@
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
+div.leftText{
+  text-align: left;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: -5px;
+}
+
+.input-field-label {
+  float: none;
+}
+
+.prettyFrame {
+  display: block;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  background-color: #FFFFFF;
+  border: 1px solid #BED1DD;
+  border-radius: 10px;
+  padding: 20px 15px 10px 15px;
+  overflow:hidden ; /* minds inside and outside floatting elements, fine if no size given */
+}
+
+.row {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+h2 {
+  margin-bottom: 20px;
+}
+
+.frame {
+  border: 1px solid #BED1DD;
+  border-radius: 10px;
+}
+
+.inside-frame-layout {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.bottom-margin-10 {
+  margin-bottom: 10px;
+}
+
+.bottom-margin-5 {
+  margin-bottom: 5px;
+}
+
+.top-bot-margin-10 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.datetimepicker-box {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.content-padding {
+  padding: 5px;
+  overflow:hidden ; /* minds inside and outside floatting elements, fine if no size given */
+}
+
+.footer {
+  margin-top: 10px;
+}
+
+.outer {
+  line-height: 300px;
+}
+
+.timepicker-positioning {
+  line-height: normal;
+  display: inline-flex;
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
+.error-msg-container {
+  color: #E00000;
+  padding-right: 25px;
+}
+
+.error-highlight {
+  box-shadow: 0 0 2px #FF0000;
+}
+
+.section-header-mid {
+  margin-top: 20px;
+}
+
+.header {
+  margin-bottom: 15px;
+}

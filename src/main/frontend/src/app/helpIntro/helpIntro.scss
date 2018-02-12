@@ -1,0 +1,19 @@
+#right-side {
+  @media (max-width: $grid-float-breakpoint) {
+    margin-top: 20px;
+  }
+}
+
+#llama {
+  @media (max-width: $grid-float-breakpoint) {
+    width: 100px;
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    width: 80%;
+  }
+}
+
+#buttons {
+  margin-top: 20px
+}

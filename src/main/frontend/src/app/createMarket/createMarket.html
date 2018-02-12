@@ -1,0 +1,264 @@
+<div class="container">
+
+  <div>
+    <acme-navbar creation-date="createMarket.creationDate"></acme-navbar>
+
+  </div>
+
+  <div class="jumbotron text-center">
+
+    <h2>{{createMarket.lang.subpageHeader}}</h2>
+
+    <!--First Page-->
+
+    <div class="prettyFrame form-group text-left" ng-if="createMarket.selectedPage === 0">
+      <div class="inside-frame-layout">
+
+          <div class="col-xs-3 col-md-3 col-lg-3 vcenter leftText input-field-label">{{createMarket.lang.marketNameLabel}}</div>
+          <div class="col-xs-9 col-md-9 col-lg-9 vcenter input-field-label">
+              <input type="text"
+                     class="form-control"
+                     ng-class="{'error-highlight':createMarket.nameExists || createMarket.nameEmpty}"
+                     data-ng-model="createMarket.marketName"
+                     name="marketName"
+                     ng-blur="createMarket.checkForNameErrors()"
+                     placeholder="{{createMarket.lang.marketNamePlaceholder}}">
+          </div>
+          <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.nameExists">
+            {{createMarket.lang.marketExists}}
+          </div>
+          <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.nameEmpty">
+            {{createMarket.lang.marketNeedsAName}}
+          </div>
+
+
+        <div class="col-xs-12 col-md-12 col-lg-12 text-center header">
+          <h4 class="section-header-mid">{{createMarket.lang.fileUploadHeader}}</h4>
+        </div>
+
+
+        In the below form please provide two of the Enroll-me output files:
+        <ul>
+          <li>the terms description file</li>
+          <li>the plan file</li>
+        </ul>
+
+
+        <input type="file" ng-model-instant multiple ng-model="createMarket.files" id="fileToUpload" custom-on-change="createMarket.setFiles"/>
+        <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.wrongAmountOfFiles">
+          {{createMarket.lang.wrongAmountOfFiles}}
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.filesNotTxt">
+          {{createMarket.lang.filesNotTxt}}
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.filesNotInCorrectFormat">
+          {{createMarket.lang.filesNotInCorrectFormat}}
+        </div>
+
+
+      </div>
+
+      <div class="col-xs-12 col-md-12 col-lg-12 text-right footer">
+
+          <button type="button" class="btn btn-success" ng-click="createMarket.nextPage()">{{createMarket.lang.nextButtonText}} </button>
+
+      </div>
+
+    </div>
+
+
+    <!--Second Page-->
+
+    <div class="prettyFrame form-group" ng-if="createMarket.selectedPage === 1">
+
+      <div class="col-xs-12 col-md-12 col-lg-12 text-center header">
+        <h4>{{createMarket.lang.timeSettingsHeader}}</h4>
+      </div>
+
+      <div class="inside-frame-layout text-left">
+
+        <div class="checkbox">
+          <div class="col-xs-11 col-md-11 col-lg-11 leftText">
+            <label><input type="checkbox" data-ng-model="createMarket.enableAutostart">{{createMarket.lang.enableAutoOpen}}</label>
+          </div>
+        </div>
+
+
+        <div class="col-xs-12 col-md-12 col-lg-12 top-bot-margin-10" ng-if="createMarket.enableAutostart">
+
+
+          <div class="well frame content-padding datetimepicker-box">
+
+            <div  class="col-xs-8 col-md-8 col-lg-8">
+              <uib-datepicker ng-model="createMarket.startDate" datepicker-options="createMarket.datePickerOptions"></uib-datepicker>
+            </div>
+            <div>
+              <div class="col-xs-4 col-md-4 col-lg-4">
+                <uib-timepicker class="timepicker-positioning" ng-model="createMarket.startDate" hour-step="1" minute-step="1" show-meridian="ismeridian"></uib-timepicker>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.startAlreadyPassed">
+            {{createMarket.lang.selectedTimePassed}}
+          </div>
+
+        </div>
+
+        <div class="checkbox">
+          <div class="col-xs-11 col-md-11 col-lg-11 leftText">
+            <label><input type="checkbox" data-ng-model="createMarket.enableAutofinish">{{createMarket.lang.enableAutoClose}}</label>
+          </div>
+
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12 top-bot-margin-10" ng-if="createMarket.enableAutofinish">
+
+
+          <div class="well frame content-padding datetimepicker-box">
+
+            <div  class="col-xs-8 col-md-8 col-lg-8">
+              <uib-datepicker ng-model="createMarket.endDate" datepicker-options="createMarket.datePickerOptions"></uib-datepicker>
+            </div>
+            <div>
+              <div class="col-xs-4 col-md-4 col-lg-4">
+                <uib-timepicker class="timepicker-positioning" ng-model="createMarket.endDate" hour-step="1" minute-step="1" show-meridian="ismeridian"></uib-timepicker>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.endAlreadyPassed">
+            {{createMarket.lang.selectedTimePassed}}
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right"
+             ng-if="createMarket.enableAutostart && createMarket.enableAutofinish && createMarket.datesNotChronological">
+          {{createMarket.lang.datesNotChronological}}
+        </div>
+
+      </div>
+
+      <div class="col-xs-6 col-md-6 col-lg-6 text-left footer">
+          <button type="button" class="btn btn-danger" ng-click="createMarket.prevPage()">{{createMarket.lang.prevButtonText}}</button>
+
+      </div>
+      <div class="col-xs-6 col-md-6 col-lg-6 text-right footer">
+
+        <button type="button" class="btn btn-success" ng-click="createMarket.nextPage()">{{createMarket.lang.nextButtonText}} </button>
+
+      </div>
+    </div>
+
+    <!--Third Page-->
+
+    <div class="prettyFrame form-group" ng-if="createMarket.selectedPage === 2">
+
+      <div class="col-xs-12 col-md-12 col-lg-12 text-center header">
+        <h4>{{createMarket.lang.subjectsHeader}}</h4>
+      </div>
+
+      <div class="inside-frame-layout text-left">
+        <div class="col-xs-12 col-md-12 col-lg-12 leftText bottom-margin-10">{{createMarket.lang.subjectChoiceText}}</div>
+        <div class="checkbox">
+          <div class="col-xs-10 col-md-11 col-lg-11 vcenter leftText bottom-margin-10">
+            <label>
+              <input
+                type="checkbox"
+                data-ng-model="createMarket.selectAll"
+                ng-change="createMarket.updateAllSubjects(createMarket.selectAll)">
+              {{createMarket.lang.selectAllText}}
+            </label>
+          </div>
+        </div>
+
+        <div class="checkbox">
+          <div class="col-xs-10 col-md-11 col-lg-11 vcenter leftText" data-ng-repeat="subject in createMarket.subjectNames">
+            <label>
+              <input
+                type="checkbox"
+                ng-change="createMarket.deselectSelectAll(subject)"
+                data-ng-model="subject.enabled">
+              {{subject.name}}
+            </label>
+          </div>
+
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12 error-msg-container text-right" ng-if="createMarket.noSubjectsSelected">
+          {{createMarket.lang.noSubjectSelected}}
+        </div>
+
+      </div>
+
+      <div class="col-xs-6 col-md-6 col-lg-6 text-left footer">
+        <button type="button" class="btn btn-danger" ng-click="createMarket.prevPage()">{{createMarket.lang.prevButtonText}}</button>
+
+      </div>
+      <div class="col-xs-6 col-md-6 col-lg-6 text-right footer">
+
+        <button type="button" class="btn btn-success" ng-click="createMarket.nextPage()">{{createMarket.lang.nextButtonText}} </button>
+
+      </div>
+    </div>
+
+    <!--Fourth Page-->
+
+    <div class="prettyFrame form-group text-left" ng-if="createMarket.selectedPage === 3">
+
+      <div class="col-xs-12 col-md-12 col-lg-12 text-center header">
+        <h4>{{createMarket.lang.summaryHeader}}</h4>
+      </div>
+
+      <div class="inside-frame-layout">
+
+        <div class="col-xs-4 col-md-4 col-lg-4">{{createMarket.lang.summaryMarketName}}</div><div class="col-xs-8 col-md-8 col-lg-8">{{createMarket.marketName}}</div>
+        <br/>
+        <div class="col-xs-4 col-md-4 col-lg-4">{{createMarket.lang.summaryAutostart}}</div><div class="col-xs-8 col-md-8 col-lg-8">
+        {{!createMarket.enableAutostart ? createMarket.lang.summaryDisabled : createMarket.startDate | date:'dd-MM-yy HH:mm'}}
+        </div>
+        <br/>
+        <div class="col-xs-4 col-md-4 col-lg-4 bottom-margin-10">{{createMarket.lang.summaryAutofinish}}</div><div class="col-xs-8 col-md-8 col-lg-8 bottom-margin-10">
+        {{!createMarket.enableAutofinish ? createMarket.lang.summaryDisabled : createMarket.endDate | date:'dd-MM-yy HH:mm'}}
+        </div>
+
+        <div class="checkbox">
+          <div class="col-xs-10 col-md-11 col-lg-11 vcenter leftText" data-ng-repeat="subject in createMarket.subjectNames">
+            <label><input type="checkbox" data-ng-model="subject.enabled" disabled>{{subject.name}}</label>
+          </div>
+        </div>
+
+        <br/>
+
+
+      </div>
+
+      <div class="col-xs-6 col-md-6 col-lg-6 text-left footer">
+
+        <button type="button" class="btn btn-danger" ng-click="createMarket.prevPage()">{{createMarket.lang.prevButtonText}}</button>
+
+      </div>
+      <div class="col-xs-6 col-md-6 col-lg-6 text-right footer">
+
+        <button type="button" class="btn btn-primary" ng-click="createMarket.finishFunction()" ng-dblclick="false" ng-disabled="createMarket.isRequestProcessing">
+          {{createMarket.lang.doneButtonText}}
+        </button>
+
+        <button type="button" class="btn btn-warning" ng-click="createMarket.startNowFunction()" ng-dblclick="false" ng-disabled="createMarket.isRequestProcessing" ng-if="!createMarket.enableAutostart">
+          {{createMarket.lang.startNowButtonText}}
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+
+</div>
+
+
+

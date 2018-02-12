@@ -1,0 +1,59 @@
+div.leftText{
+  text-align: left;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.list-frame {
+  line-height: 1.42857143;
+  background-color: #dedede;
+  border-radius: 10px;
+  width: 95%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.list-position:hover {
+  background-color: #FFFFFF;
+}
+
+.list-position{
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.list-row {
+  width: 98%;
+  display: inline-block;
+  margin: 0;
+}
+
+.margin-button{
+  margin-top: 30px;
+}
+
+.details-button{
+  background-color: rgb(200, 200, 200);
+  font-size: 10px;
+  padding: 0 3px 0 3px;
+}
+
+.headline{
+  border-bottom: 1px solid #989898;
+}
+
+.no-market-info{
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.pagination-sm{
+  margin-bottom: 0;
+}
+
+a:link{
+  color:inherit;
+}

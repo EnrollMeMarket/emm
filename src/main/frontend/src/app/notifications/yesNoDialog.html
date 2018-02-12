@@ -1,0 +1,12 @@
+<div class="container" style="width: 100%">
+  <h1><span class="glyphicon glyphicon-question-sign info"></span> {{yesNoDialog.title}}</h1>
+  <p ng-bind-html="yesNoDialog.message"></p><br>
+  <div style="text-align: right">
+    <button type="button" class="btn btn-sm btn-success" ng-click="yesNoDialog.closeConfirm()" autofocus>
+      {{yesNoDialog.yesButtonText}}
+    </button>
+    <button type="button" class="btn btn-sm btn-danger" ng-click="yesNoDialog.close()">
+      {{yesNoDialog.noButtonText}}
+    </button>
+  </div>
+</div>

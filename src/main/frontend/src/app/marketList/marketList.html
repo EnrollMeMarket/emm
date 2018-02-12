@@ -1,0 +1,57 @@
+<div class="container" ng-if="marketList.isStarosta()">
+
+  <div>
+    <acme-navbar></acme-navbar>
+  </div>
+
+  <div class="jumbotron text-center">
+    <h2>{{marketList.lang.subpageHeader}}</h2>
+
+    <div class="no-market-info" ng-if="!marketList.areThereAnyMarkets() && marketList.isStarosta()">
+      {{marketList.lang.noMarketsMessageStarosta}}
+    </div>
+
+    <div class="no-market-info" ng-if="!marketList.areThereAnyMarkets() && !marketList.isStarosta()">
+      {{marketList.lang.noMarketsMessage}}
+    </div>
+
+
+    <div class="list-frame leftText" ng-if="marketList.areThereAnyMarkets()">
+      <div class="row bold list-row headline">
+        <div class="col-xs-12 col-md-3 col-lg-3">{{marketList.lang.headerName}}</div>
+        <div class="col-xs-12 col-md-2 col-lg-2">{{marketList.lang.headerCreator}}</div>
+        <div class="col-xs-6 col-md-2 col-lg-2">{{marketList.lang.headerStart}}</div>
+        <div class="col-xs-6 col-md-2 col-lg-2">{{marketList.lang.headerFinish}}</div>
+        <div class="col-xs-6 col-md-2 col-lg-2">{{marketList.lang.headerState}}</div>
+        <div class="col-xs-6 col-md-1 col-lg-1">{{marketList.lang.headerDetails}}</div>
+      </div>
+
+      <div class="row list-position list-row leftText"  data-ng-repeat="market in marketList.markets | paginationFilter:marketList.currentPage:marketList.itemsPerPage">
+        <div class="col-xs-3 col-md-3 col-lg-3">{{market.name}}</div>
+        <div class="col-xs-2 col-md-2 col-lg-2">{{market.createdBy}}</div>
+        <div class="col-xs-2 col-md-2 col-lg-2">{{marketList.getDateTimeString(market.beg)}}</div>
+        <div class="col-xs-2 col-md-2 col-lg-2">{{marketList.getDateTimeString(market.end)}}</div>
+        <div class="col-xs-2 col-md-2 col-lg-2">{{market.state}}</div>
+        <div class="col-xs-1 col-md-1 col-lg-1">
+          <a href="/markets/{{market.name}}">
+            <button type="button" class="btn details-button" ng-dblclick="false" ng-disabled="marketList.isRequestProcessing">{{marketList.lang.detailsButtonText}}</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <ul uib-pagination
+        total-items="marketList.markets.length"
+        ng-model="marketList.currentPage"
+        max-size="marketList.maxPaginationSize"
+        items-per-page="{{marketList.itemsPerPage}}"
+        class="pagination-sm"
+        boundary-link-numbers="true"
+        next-text="{{marketList.lang.nextButtonText}}"
+        previous-text="{{marketList.lang.previousButtonText}}" ng-if="marketList.shouldShowPagination()"></ul>
+
+    <div class="text-right">
+      <button type="button" class="btn btn-success margin-button" ng-click="marketList.goToCreateMarket()" ng-dblclick="false" ng-disabled="marketList.isRequestProcessing">{{marketList.lang.createMarketButtonText}}</button>
+    </div>
+  </div>
+</div>

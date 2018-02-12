@@ -1,0 +1,9 @@
+emm:
+  application-name: Enroll Me Market
+  version: 1.0.0-SNAPSHOT
+  tmp-folder: tmp/
+  llama-photo: images/llama_blue.png
+  font: fonts/arialuni.ttf
+
+spring:
+  profiles.active: dev

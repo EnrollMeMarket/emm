@@ -1,0 +1,46 @@
+### Co sie dzieje w kodzie ###
+Stan na 29.12.16
+
+Krótki, acz dokładny przewodnik dla szczęsliwców, którzy będą rozwijać kalendarz. :)
+
+# Idea #
+User wchodzi na strone, pokazujemy mu jego plan zajec.
+Moze kliknac na dowolny swoj termin - wtedy pokazuja mu sie wszystkie terminy, na ktore moze to wymienic.
+
+# Id przedmiotu #
+Id przedmiotu (to, co widać w API pod /course) nie jest nigdzie potrzebne - nie pobierajmy go i nie używajmy!
+Przedmiot identyfikujemy po classId terminu aktualnie posiadanego.
+
+# Monitorowanie zmian #
+Mamy listy zamian Added i Removed. To swego rodzaju diff między tym, co jest w bazie, a tym co na ekranie.
+Jak user kliknie 'save', dodamy wszystkie Added i usuniemy Removed.
+Póki user tego nie zrobi, do bazy zapisujemy tylko wymiany z 'available now'.
+Kliknięcie 'available now' nie zapisuje pozostałych wymian. Myślę że to ma sens, bo user ma wtedy pełną kontrolę nad tym,
+kiedy zmiany się zapiszą.
+
+# Wymiany 1-1 #
+Niektóre terminy mają adnotację 'available now'. To znaczy, że w bazie jest wymiana w drugą stronę.
+Po jego kliknięciu i potwierdzeniu przez usera natychmiast zapisujemy tę zamianę w bazie.
+
+Pożądany efekt jest taki, że zamiana wykona sę od razu - user dostaje powiadomienie, że się udało. Widać to po
+parametrze done=true w odpowiedzi z API.
+
+Może się jednak zdarzyć, że ktoś był szybszy (wszak giełdą bawi się jednocześnie 50 osób). Wtedy ta zamiana także jest
+zapisana w bazie, ale z done=false. Czyli tak, jak zwykła zamiana czekająca na chętnego.
+Tej zamiany nie dodajemy do listy zmian (Added/Removed) - bo już jest zapisana.
+
+Po całej tej procedurze:
+ - jeśli się udało, odświeżamy plan użytkownika (bo mógł się zmienić) i pozwalamy mu nacieszyć się jego widokiem.
+ - jeśli się nie udało, odświeżamy aktualną listę wymian (bo np. trzeba ten termin zaznaczyć na zielono)
+
+
+
+# Funkcje #
+loadTimetable - przy ładowaniu strony ładuje plan usera z API, potem można też go odświeżyć.
+changeCourse - ładujemy możliwe terminy zamian dla danego przedmiotu.
+addOrRemoveSwap - wywoływane przy kliknięciu zielonego/czerwonego terminu. Zmienia kolorek i dodaje/usuwa z odpowiedniej
+  listy zmian (Added/Removed)
+cancelSwapsFromClass - filtruje listy zmian, usuwając z nich "oddam termin X". Przydatne przy wymianach 1-1. Jeśli
+  właśnie zamieniłem Potorskiego na Paszkowską (głupi ja!), to moja wcześniejsza (jeszcze nie zapisana) zamiana
+  Potorskiego na Noska nie ma już sensu.
+exchangeNow - próba wymiany 1-1 opisana wcześniej

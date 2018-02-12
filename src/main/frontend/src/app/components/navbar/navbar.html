@@ -1,0 +1,35 @@
+<nav class="navbar navbar-static-top navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        <span><img src="images/llama_blue.svg" style="width: 20px"></span> Enroll Me Market
+      </a>
+      <a class="navbar-brand menu-toggle clickable" style="float: right" ng-click="vm.toggleMenu()">
+        <span class="glyphicon glyphicon-th-list"></span>
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" uib-collapse="vm.showMenu">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: vm.isActive('/calendarView')}"><a href="/calendarView" ng-show="vm.isLoggedIn()">Calendar</a>
+        </li>
+        <li ng-class="{ active: vm.isActive('/markets')}"><a href="/markets"
+                                                             ng-show="vm.isLoggedIn() && vm.isStarosta()">Markets</a>
+        </li>
+        <li ng-class="{ active: vm.isActive('/exchangesSummary')}"><a href="/exchangesSummary"
+                                                                      ng-show="vm.isLoggedIn()">Exchanges Summary</a>
+        </li>
+        <li ng-class="{ active: vm.isActive('/helpQA')}"><a href="/helpQA" ng-show="vm.isLoggedIn()">Help</a></li>
+        <li style="float: right">
+          <span class="acme-navbar-text" ng-show="vm.isLoggedIn()" style="float: right">
+            Logged in as: {{vm.getUserIndex()}} ({{vm.getUserRole()}})
+          </span>
+          <span class="acme-navbar-text" ng-show="vm.isLoggedIn()" ng-click="vm.logout()" style="float: right; clear: right">
+            <span class="glyphicon glyphicon-log-out"></span> Logout
+          </span>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

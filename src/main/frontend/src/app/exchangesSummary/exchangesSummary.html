@@ -1,0 +1,91 @@
+<div class="container">
+  <div>
+    <acme-navbar creation-date="exchangesSummary.creationDate"></acme-navbar>
+  </div>
+  <div class="jumbotron text-center">
+    <h2>Exchanges Summary</h2>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Your preferences
+        </h3>
+      </div>
+      <div class="panel-body">
+        <span ng-hide="(exchangesSummary.terms | filter:{done:false}).length==0">
+          These terms are marked as wanted by you. Who knows - maybe some day we'll find someone willing to complete the exchange?
+        </span>
+        <span ng-show="(exchangesSummary.terms | filter:{done:false}).length==0">
+          You haven't introduced any preferences yet. Maybe it's time to change it?
+        </span>
+
+        <div class="row" ng-repeat="term in exchangesSummary.terms | filter:{done:false} | orderBy: 'give.title'">
+          <div class="col-sm-5" style="text-align: right">
+            <h4><span class="label label-danger" style="width: 100%; display: block">
+              {{term['give']['title']}}<br>
+              {{term['give']['host']}} {{term['give']['weekday']}}
+              {{exchangesSummary.formatTimeString(term['give']['begTime'])}}
+              {{term['give']['week']=='all' ? '' : term['give']['week']}}
+            </span></h4>
+          </div>
+          <div class="col-sm-2">
+            <h4>
+              <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span><br>
+              <span ng-click="exchangesSummary.removeSwap(term['swapId'])" class="clickable" style="font-size: x-small">Remove</span>
+            </h4>
+          </div>
+          <div class="col-sm-5" style="text-align: left">
+            <h4><span class="label label-success" style="width: 100%; display: block">
+              {{term['take']['title']}}<br>
+              {{term['take']['host']}} {{term['take']['weekday']}}
+              {{exchangesSummary.formatTimeString(term['take']['begTime'])}}
+              {{term['take']['week']=='all' ? '' : term['take']['week']}}
+            </span></h4>
+          </div>
+        </div>
+        <br><br>
+        <a ng-href="calendarView"><button type="button" class="btn btn-primary active">
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-dblclick="false" ng-disabled="exchangesSummary.isRequestProcessing"></span> Edit preferences
+        </button></a>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Successful exchanges
+        </h3>
+      </div>
+      <div class="panel-body">
+          <span ng-hide="(exchangesSummary.terms | filter:{done:true}).length==0">
+            Lucky you! These exchanges have already been completed - enjoy your new timetable!
+          </span>
+          <span ng-show="(exchangesSummary.terms | filter:{done:true}).length==0">
+            You haven't completed any exchange yet.
+          </span>
+        <div class="row" ng-repeat="term in exchangesSummary.terms | filter:{done:true} | orderBy: 'give.title'">
+          <div class="col-sm-5" style="text-align: right">
+            <h4><span class="label label-danger" style="width: 100%; display: block">
+              {{term['take']['title']}}<br>
+              {{term['give']['host']}} {{term['give']['weekday']}}
+              {{exchangesSummary.formatTimeString(term['give']['begTime'])}}
+              {{term['give']['week']=='all' ? '' : term['give']['week']}}
+            </span></h4>
+          </div>
+          <div class="col-sm-2">
+            <h4><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></h4>
+          </div>
+          <div class="col-sm-5" style="text-align: left">
+            <h4><span class="label label-success" style="width: 100%; display: block">
+              {{term['take']['title']}}<br>
+              {{term['take']['host']}} {{term['take']['weekday']}}
+              {{exchangesSummary.formatTimeString(term['take']['begTime'])}}
+              {{term['take']['week']=='all' ? '' : term['take']['week']}}
+            </span></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

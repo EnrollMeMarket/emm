@@ -1,0 +1,9 @@
+<div class="container" style="width: 100%">
+  <h1><span class="glyphicon {{notification.iconName}} {{notification.iconClass}}"></span> {{notification.title}}</h1>
+  <p ng-bind-html="notification.message"></p><br>
+  <div style="text-align: right">
+    <button type="button" class="btn btn-sm {{notification.buttonClass}}" ng-click="notification.close()" autofocus>
+      {{notification.buttonText}}
+    </button>
+  </div>
+</div>

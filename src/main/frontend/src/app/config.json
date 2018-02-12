@@ -1,0 +1,35 @@
+{
+  "dev": {
+    "environment": {
+      "profile": "dev",
+      "apiUrl": "http://localhost:8080",
+      "isDebug": true,
+      "loginToken": false,
+      "studentDebugIndex": "1",
+      "starostaDebugIndex": "2",
+      "adminDebugIndex": "3"
+    }
+  },
+  "integ": {
+    "environment": {
+      "profile": "integ",
+      "apiUrl": "ENTER_URL_HERE",
+      "isDebug": true,
+      "loginToken": "emm",
+      "studentDebugIndex": "-1",
+      "starostaDebugIndex": "-1",
+      "adminDebugIndex": "-1"
+    }
+  },
+  "prod": {
+    "environment": {
+      "profile": "prod",
+      "apiUrl": "ENTER_URL_HERE",
+      "isDebug": false,
+      "loginToken": false,
+      "studentDebugIndex": "-1",
+      "starostaDebugIndex": "-1",
+      "adminDebugIndex": "-1"
+    }
+  }
+}

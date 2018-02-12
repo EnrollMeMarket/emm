@@ -1,0 +1,53 @@
+<div class="container">
+
+  <div>
+    <acme-navbar creation-date="main.creationDate"></acme-navbar>
+  </div>
+
+  <div class="jumbotron text-center">
+    <h1>My preferences</h1>
+
+    <div class="alert alert-warning" role="alert" ng-show="!calendarView.allChangesSaved()">
+      <span class="glyphicon glyphicon-warning-sign"></span>
+      Remember to save your preferences! Unsaved changes: <span class="badge">{{calendarView.addedSwaps.length+calendarView.removedSwaps.length}}</span>
+      <br><br>
+      <button type="button" class="btn btn-success" ng-click="calendarView.saveChanges()" ng-dblclick="false" ng-disabled="calendarView.isRequestProcessing">
+        <span class="glyphicon glyphicon-floppy-disk"></span> Save now
+      </button>
+    </div>
+
+    <div class="alert alert-success" role="success" ng-show="calendarView.allChangesSaved()">
+      <span class="glyphicon glyphicon-ok"></span>
+      There are no unsaved changes at the moment.
+    </div>
+
+    <p class="lead">
+
+    <div class="well"><h4>
+      <span class="label" style="background-color: gray; font-weight: normal">Fixed terms</span>
+      <span class="label" style="background-color: cornFlowerBlue; font-weight: normal">My terms</span>
+      <span class="label" style="background-color: blue; font-weight: normal">My term (chosen course)</span>
+      <span class="label" style="background-color: green; font-weight: normal">I want this term</span>
+      <span class="label" style="background-color: red; font-weight: normal">I don't want this term</span>
+      <span class="label" style="background-color: orange; font-weight: normal">Available Now</span>
+    </h4></div>
+
+    <div ui-calendar="calendarView.uiConfig.calendar" ng-model="calendarView.eventsSource" calendar="myCalendar" id="calendar"></div>
+
+    <div class="panel panel-default" ng-if="calendarView.isDebugEnabled()">
+      <div class="panel-heading">Debug tools</div>
+      <div class="panel-body">
+        {{calendarView.addedSwaps}}<br>
+        {{calendarView.removedSwaps}}<br>
+
+        <input type="text" class="form-control" id="userid" ng-model="calendarView.userId" value="276391">
+        <button type="button" class="btn btn-xs" ng-click="calendarView.loadTimetable()" ng-dblclick="false" ng-disabled="calendarView.isRequestProcessing">Refresh</button>
+      </div>
+    </div>
+
+    </p>
+
+  </div>
+
+</div>
+<div id="zoom-container"></div>

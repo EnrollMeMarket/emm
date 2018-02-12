@@ -1,0 +1,21 @@
+emm:
+  debug-enabled: true
+
+spring:
+  profiles: dev
+
+  datasource:
+    name: enroll-me-market
+    platform: h2
+    url: jdbc:h2:mem:enroll-me-market;DATABASE_TO_UPPER=false;IGNORECASE=true;
+    dataSourceClassName: org.h2.jdbcx.JdbcDataSource
+
+  h2:
+    console:
+      enabled: true
+      path: /db-console/emm
+#credentials - sa/(blank)
+
+  server:
+    address: localhost
+    port: 8080

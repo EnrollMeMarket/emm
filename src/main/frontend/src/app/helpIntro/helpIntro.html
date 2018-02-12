@@ -1,0 +1,88 @@
+<div class="container">
+  <div>
+    <acme-navbar creation-date="helpIntro.creationDate"></acme-navbar>
+  </div>
+
+  <div class="jumbotron">
+    <h2 class="text-center">Introduction</h2>
+    <p class="lead">
+
+      <div class="progress" style="margin-bottom: 50px">
+        <div class="progress-bar" role="progressbar" style="width: {{helpIntro.page*100/7}}%; background-color: #5AADBB"
+             aria-valuenow="{{helpIntro.percent}}" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3 text-center">
+          <span><img src="images/llama_blue.svg" id="llama"></span>
+        </div>
+
+        <div class="col-sm-9 well" id="right-side">
+
+          <div ng-show="helpIntro.page==1">
+            <h2>Welcome to Enroll-Me Market!</h2>
+            Our friendly llama will show you how to use the application in a few simple steps.
+          </div>
+
+          <div ng-show="helpIntro.page==2">
+            <h2>Your timetable</h2>
+            In Calendar view you'll see your current timetable.<br><br>
+            <span class="label" style="background-color: cornFlowerBlue; font-weight: normal">Blue</span> terms are those
+            you can exchange.<br>
+            <span class="label" style="background-color: gray; font-weight: normal">Gray</span> ones are fixed
+            (usually lectures).<br><br>
+            <img src="images/calendar_example2.png" style="width: 100%">
+          </div>
+
+          <div ng-show="helpIntro.page==3">
+            <h2>Introducing preferences</h2>
+            To let us find some exchanges for you, you have to tell us what your preferences are.<br><br>
+            When you click one of the <span class="label" style="background-color: cornFlowerBlue; font-weight: normal">blue</span>
+            terms, you'll see what you can exchange it to. For your convenience, we only display the terms that
+            don't conflict with your current timetable.<br><br>
+            <img src="images/calendar_example1.png" style="width: 100%">
+          </div>
+
+          <div ng-show="helpIntro.page==4">
+            <h2>Introducing preferences</h2>
+            <span class="label" style="background-color: red; font-weight: normal">Red</span> colour means you don't want to get this term...<br>
+            <span class="label" style="background-color: green; font-weight: normal">Green</span> colour marks the terms you want.<br><br>
+            You can toggle the colors simply by clicking chosen terms. As simple as that!<br><br>
+            <div class="alert alert-warning" role="alert">
+              <span class="glyphicon glyphicon-warning-sign"></span>
+              Don't forget to save your preferences!
+            </div>
+            The only thing you have to do now is wait until we find somebody to exchage the term with you.
+          </div>
+
+          <div ng-show="helpIntro.page==5">
+            <h2>Available Now</h2>
+            Under some terms you'll see an 'Available Now' label. They're highlighted in <span class="label" style="background-color: orange; font-weight: normal">orange</span><br><br>
+            This means there's already someone who'd like to get your current term, and offers this one in exchange.<br><br>
+            If you select it, the exchange will take place immediately - with a guarantee of success. Be careful though - there'll be no way to undo it!
+          </div>
+
+          <div ng-show="helpIntro.page==6">
+            <h2>Exchanges Summary</h2>
+            To keep track of your preferences, take a look at the Exchanges Summary. You can see a list of all the terms you'd like to get, as well as the terms that you've already exchanged.<br><br>
+            An exchange can also take place when you're not logged in to the application. The list is a perfect way to check if there's some good news waiting for you!
+          </div>
+
+          <div ng-show="helpIntro.page==7">
+            <h2>That's all!</h2>
+            It seems you're ready for exchanging some terms. Good luck!<br><br>
+            To find out more, head to the <a href="helpQA">Q&A Section</a>.<br><br>
+            And if you need any help, feel free to contact us! We'll do our best to help you.
+          </div>
+
+          <div id="buttons">
+            <button type="button" class="btn btn-primary active" ng-show="helpIntro.page>1" ng-click="helpIntro.page=helpIntro.page-1">Prev</button>
+            <button type="button" class="btn btn-primary active" ng-show="helpIntro.page<7" ng-click="helpIntro.page=helpIntro.page+1" style="float: right">Next</button>
+            <div style="clear: both"></div>
+          </div>
+        </div>
+      </div>
+    </p>
+  </div>
+</div>

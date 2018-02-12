@@ -1,0 +1,13 @@
+.acme-navbar-text{
+  color: white;
+}
+
+.navbar-nav {
+  float: none;
+}
+
+.menu-toggle {
+  @media (min-width: $grid-float-breakpoint) {
+    display: none;
+  }
+}

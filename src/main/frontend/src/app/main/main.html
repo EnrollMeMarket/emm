@@ -1,0 +1,76 @@
+<div class="container">
+
+  <div>
+    <acme-navbar creation-date="main.creationDate"></acme-navbar>
+  </div>
+
+  <div class="jumbotron text-center">
+
+    <h1>Enroll-me Market</h1><br>
+
+    <div class="text-center">
+      <span><img src="images/llama_blue.svg" style="width: 150px"></span>
+    </div>
+
+    <br>
+    Welcome to Enroll Me Market - the key to a timetable of your dreams!
+    <br><br>
+
+    <div class="well text-center" ng-if="main.isLoggedIn()">
+      New here? Take a look at a brief <a href="helpIntro">introduction</a>!
+    </div>
+
+    <div class="alert alert-warning" role="alert" ng-if="!main.isLoggedIn()">
+      <span class="glyphicon glyphicon-warning-sign"></span>
+      You need to log in to enter.
+    </div>
+
+    <div ng-if="!main.isLoggedIn()">
+      <div ng-if="main.isDebugEnabled()">
+        <input name="debugIndex" placeholder="index" ng-model="main.debugIndex"><br><br>
+      </div>
+      <div ng-if="main.isTokenRequired()">
+        <input type="password" name="debugToken" placeholder="token" ng-model="main.debugToken"><br><br>
+      </div>
+      <button ng-click="main.oauthLogin()" type="button" class="btn btn-primary active">
+        Login with external service <span class="glyphicon glyphicon-triangle-right"></span>
+      </button>
+      <button ng-click="main.loginDebug()" ng-if="main.isDebugEnabled()" type="button" class="btn btn-primary active">
+        Debug login <span class="glyphicon glyphicon-triangle-right"></span>
+      </button>
+
+      <div class="row" ng-if="main.isDebugEnabled()">
+        <div class="debug-role-form text-left">
+          <form>
+            <label>Debug Role</label><br>
+            <div class="radio">
+              <label>
+                <input type="radio" ng-model="main.debugRole" value="{{main.studentRole}}">{{main.studentRole}}
+              </label><br>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" ng-model="main.debugRole" value="{{main.starostaRole}}">{{main.starostaRole}}
+              </label><br>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" ng-model="main.debugRole" value="{{main.adminRole}}">{{main.adminRole}}
+              </label>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="alert alert-info" role="alert" style="margin-top: 20px">
+      <span class="glyphicon glyphicon-floppy-disk"></span>
+      We use cookies to make the application better (and to feed our llama). By logging in you accept it - you can
+      change the settings in your browser.
+    </div>
+
+  </div>
+
+</div>
