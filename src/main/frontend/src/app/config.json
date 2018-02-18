@@ -2,7 +2,7 @@
   "dev": {
     "environment": {
       "profile": "dev",
-      "apiUrl": "http://localhost:8080",
+      "apiUrl": "http://localhost:8080/api",
       "isDebug": true,
       "loginToken": false,
       "studentDebugIndex": "1",

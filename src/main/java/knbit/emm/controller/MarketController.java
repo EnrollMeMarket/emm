@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-
 @RestController
-@RequestMapping("/market")
+@RequestMapping("/api/market")
 public class MarketController {
 
     private final MarketService marketService;
@@ -33,7 +32,6 @@ public class MarketController {
         this.courseService = courseService;
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAllMarkets(
             @RequestHeader(value = "Authorization") String token
@@ -50,7 +48,6 @@ public class MarketController {
         return new ResponseEntity<>(marketService.findPossibleForUserMarkets(markets, token), HttpStatus.OK);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{name}/students")
     public ResponseEntity getAllStudents(
             @PathVariable("name") String name,
@@ -62,13 +59,9 @@ public class MarketController {
         }
 
         Market market = marketService.findMarket(name);
-        if (market == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(market.getStudents(), HttpStatus.OK);
+        return ResponseUtils.getValueOrError(market);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value="/{name}/courses")
     public ResponseEntity getAllCourses(
             @PathVariable("name") String name,
@@ -87,7 +80,6 @@ public class MarketController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{name}/done_swaps")
     public ResponseEntity getAllDoneSwaps(
             @PathVariable("name") String name,
@@ -105,7 +97,6 @@ public class MarketController {
         return new ResponseEntity<>(marketService.findAllDoneSwaps(market), HttpStatus.OK);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{name}")
     public ResponseEntity getMarketInfo(
             @PathVariable("name") String name,
@@ -124,7 +115,6 @@ public class MarketController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/names")
     public ResponseEntity getAllMarketNames(
             @RequestHeader(value = "Authorization") String token
@@ -134,21 +124,18 @@ public class MarketController {
 
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, value = "/open/{marketName}")
     public ResponseEntity openMarket(@PathVariable String marketName,
                                               @RequestHeader(value = "Authorization") String token) {
         return marketService.changeMarketStateFromTo(marketName, token, MarketState.CLOSED, MarketState.OPEN);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, value = "/finish/{marketName}")
     public ResponseEntity finishMarket(@PathVariable String marketName,
                                                @RequestHeader(value = "Authorization") String token) {
         return marketService.changeMarketStateFromTo(marketName, token, MarketState.OPEN, MarketState.FINISHED);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity newMarket(
             @RequestBody Map<String,Object> marketMap,
@@ -158,13 +145,9 @@ public class MarketController {
         if(isNotValidToken.isPresent()){
             return isNotValidToken.get();
         }
-        try{
-            Market market = marketService.createNewMarket(marketMap, token);
-            return new ResponseEntity<>(market, HttpStatus.CREATED);
-        } catch (NullPointerException | ClassCastException | IllegalStateException e) {
-            log.error("Failed to create new marker", e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+
+        Market market = marketService.createNewMarket(marketMap, token);
+        return new ResponseEntity<>(market, HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{name}/algorithm_accepted_swaps")

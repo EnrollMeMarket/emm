@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/token")
 public class TokenController {
 
     private static Logger log = Logger.getLogger(SwapController.class.getName());
@@ -54,8 +54,6 @@ public class TokenController {
         public ExtendedJSONResponse() {}
     }
 
-
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/debugLogin")
     public ResponseEntity<Map<String, Object>> debugLogin(@RequestBody Map<String, Object> paramsMap) throws IOException {
 
@@ -86,7 +84,6 @@ public class TokenController {
         return new ResponseEntity<>(responseMap, HttpStatus.CREATED);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, Object> paramsMap) throws IOException {
 
@@ -117,12 +114,7 @@ public class TokenController {
             String refreshJws = TokenUtils.buildRefreshJWS(transcriptNumber);
             String accessJws = TokenUtils.buildAccessJWS(transcriptNumber, expiresIn);
 
-            try {
-                tokenProvider.addToken(refreshJws, transcriptNumber);
-            } catch (NullPointerException|ClassCastException e) {
-                log.error(e);
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+            tokenProvider.addToken(refreshJws, transcriptNumber);
 
             responseMap.put("expiresIn", expiresIn);
             responseMap.put("accessToken", accessJws);
@@ -133,12 +125,12 @@ public class TokenController {
             responseMap.put("role", TokenUtils.getUserRole(transcriptNumber));
             return new ResponseEntity<>(responseMap, HttpStatus.CREATED);
 
-        } catch (HttpClientErrorException e) {
+        } catch (NullPointerException|ClassCastException|HttpClientErrorException e) {
+            log.error(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/logout")
     public ResponseEntity<Map<String, Object>> logout(@RequestBody Map<String,String> refreshTokenMap){
         String refreshToken = refreshTokenMap.get("refreshToken");
@@ -147,7 +139,6 @@ public class TokenController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/refresh")
     public ResponseEntity<Map<String, Object>> grantNewAccessToken(@RequestBody Map<String,String> refreshTokenMap){
         String refreshToken = refreshTokenMap.get("refreshToken");
@@ -169,7 +160,5 @@ public class TokenController {
         responseMap.put("refreshToken", refreshJws);
         return new ResponseEntity<>(responseMap,HttpStatus.CREATED);
     }
-
-
 }
 

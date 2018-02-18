@@ -21,7 +21,7 @@ public class AuthController {
     //TODO controller should return 'access denied' for not logged in user
     //but it is not done now because security mechanism will be changed
 
-    @RequestMapping("/userRole/{index}")
+    @RequestMapping("/api/userRole/{index}")
     public User getUserRole(@PathVariable String index) {
 
         User user = userService.findUser(index);

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping(path = "/swap")
+@RequestMapping(path = "/api/swap")
 public class SwapController {
 
     private static Logger log = Logger.getLogger(SwapController.class.getName());
@@ -25,7 +25,6 @@ public class SwapController {
         this.swapService = swapService;
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value="/{swapId}")
     public ResponseEntity getSwapDetails(
             @PathVariable("swapId") int swapId,
@@ -39,7 +38,6 @@ public class SwapController {
         return isNotValidToken.orElseGet(() -> new ResponseEntity<>(swap, HttpStatus.OK));
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAllSwaps(
             @RequestHeader(value="Authorization") String token
@@ -50,13 +48,9 @@ public class SwapController {
         }
 
         Iterable<Swap> swaps = swapService.findAllSwaps();
-        if(swaps == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(swaps, HttpStatus.OK);
+        return ResponseUtils.getValueOrNotFound(swaps);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value="/done")
     public ResponseEntity getAllDoneSwaps(
             @RequestHeader(value="Authorization") String token
@@ -67,13 +61,9 @@ public class SwapController {
         }
 
         Iterable<Swap> swaps = swapService.getAllDone();
-        if(swaps == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(swaps, HttpStatus.OK);
+        return ResponseUtils.getValueOrNotFound(swaps);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.DELETE, value="/{swapId}")
     public ResponseEntity deleteSwap(
             @PathVariable("swapId") int swapId,
@@ -92,7 +82,6 @@ public class SwapController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/many")
     public ResponseEntity deleteManySwaps(
             @RequestBody List<Swap> swapList,
@@ -108,7 +97,6 @@ public class SwapController {
         return new ResponseEntity<>(swapSummary, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value="/{swapId}/is_ready")
     public ResponseEntity getIfSwapIsReady(
             @PathVariable("swapId") int swapId,
@@ -120,13 +108,9 @@ public class SwapController {
         }
 
         Swap swap = swapService.findSwap(swapId);
-        if(swap == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(swapService.isPossibleSwap(swap), HttpStatus.OK);
+        return ResponseUtils.getValueOrNotFound(swap);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/many")
     public ResponseEntity postSwaps(
             @RequestBody List<Swap> swapList,
@@ -138,16 +122,10 @@ public class SwapController {
                 return isNotValidToken.get();
             }
         }
-        try {
-            SwapSummary swapSummary = swapService.handleManySwapsAndCreateResponse(swapList);
-            return new ResponseEntity<>(swapSummary, HttpStatus.CREATED);
-        } catch (NullPointerException | ClassCastException e){
-            log.error("",e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        SwapSummary swapSummary = swapService.handleManySwapsAndCreateResponse(swapList);
+        return new ResponseEntity<>(swapSummary, HttpStatus.CREATED);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity postSwap(
             @RequestBody Swap postedSwap,
@@ -157,16 +135,7 @@ public class SwapController {
         if(isNotValidToken.isPresent()){
             return isNotValidToken.get();
         }
-
-        try {
-            Swap swap = swapService.handleSingleSwap(postedSwap).orElse(null);
-            if (swap == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-            }
-            return new ResponseEntity<>(swap, HttpStatus.CREATED);
-        } catch (NullPointerException | ClassCastException e){
-            log.error(e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        Swap swap = swapService.handleSingleSwap(postedSwap).orElse(null);
+        return ResponseUtils.getValueOrNotFound(swap);
     }
 }
