@@ -9,12 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @EnableScheduling
 public class Application {
 
-    @RequestMapping("/{path:[^\\.]+}/**")
-    public String forward() {
-        return "forward:/";
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
 }
