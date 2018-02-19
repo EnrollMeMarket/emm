@@ -30,8 +30,7 @@ public class ReportController {
         this.reportGenerator = reportGenerator;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "/report/{marketName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/report/{marketName}", method = RequestMethod.GET)
     public void generateReport(@PathVariable String marketName,
                                                  @RequestHeader(value = "Authorization") String token,
                                                  HttpServletResponse response

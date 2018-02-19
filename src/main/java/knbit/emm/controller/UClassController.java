@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/class")
+@RequestMapping(path = "/api/class")
 public class UClassController {
 
     private final UClassService uClassService;
@@ -21,7 +21,6 @@ public class UClassController {
         this.uClassService = uClassService;
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{classId}")
     public ResponseEntity getClassDetails(
             @PathVariable("classId") int classId,
@@ -33,13 +32,9 @@ public class UClassController {
         }
 
         UClass uclass = uClassService.findClass(classId);
-        if (uclass == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(uclass, HttpStatus.OK);
+        return ResponseUtils.getValueOrNotFound(uclass);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAllCourses(
             @RequestHeader(value="Authorization") String token
@@ -50,13 +45,9 @@ public class UClassController {
         }
 
         Iterable<UClass> classes = uClassService.findAllClass();
-        if (classes == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(classes, HttpStatus.OK);
+        return ResponseUtils.getValueOrNotFound(classes);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{classId}/swapsGive")
     public ResponseEntity getSwapsGive(
             @PathVariable("classId") int classId,
@@ -68,13 +59,9 @@ public class UClassController {
         }
 
         UClass uclass = uClassService.findClass(classId);
-        if (uclass == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(uclass.getSwapsGive(), HttpStatus.OK);
+        return ResponseUtils.getValueOrNotFound(uclass);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{classId}/swapsTake")
     public ResponseEntity getSwapsTake(
             @PathVariable("classId") int classId,
@@ -86,10 +73,7 @@ public class UClassController {
         }
 
         UClass uclass = uClassService.findClass(classId);
-        if (uclass == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(uclass.getSwapsTake(), HttpStatus.OK);
+        return ResponseUtils.getValueOrNotFound(uclass);
     }
 
 }

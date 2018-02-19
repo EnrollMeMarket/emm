@@ -76,7 +76,7 @@ public class SwapService {
         Swap swap = prepareSwapFromDatabase(postSwaps);
         if (swap.isImproper()) {
             return Optional.empty();
-        }else {
+        } else {
             operateOnSwap(swap);
         }
         return Optional.of(swap);
@@ -93,8 +93,7 @@ public class SwapService {
         Optional<Swap> optSwap = findMatchingSwap(swap);
         if (optSwap.isPresent()) {
             handleDoneSwap(swap, optSwap.get());
-        }
-        else{
+        } else{
             swap.setDone(false);
             swapRepository.save(swap);
         }

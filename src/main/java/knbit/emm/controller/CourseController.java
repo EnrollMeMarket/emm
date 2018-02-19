@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/api/course")
 public class CourseController {
 
     private static Logger log = Logger.getLogger(CourseController.class.getName());
@@ -24,7 +24,6 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createCourse(
             @RequestBody Course newCourse,
@@ -34,16 +33,11 @@ public class CourseController {
         if(isNotValidToken.isPresent()){
             return isNotValidToken.get();
         }
-        try {
-            Course course = courseService.saveCourse(newCourse);
-            return new ResponseEntity<>(course, HttpStatus.CREATED);
-        } catch (Exception e) {
-            log.error("Failed to create new course", e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        Course course = courseService.saveCourse(newCourse);
+        return ResponseUtils.getCreatedOrError(course);
+
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{courseID}")
     public ResponseEntity getCourseDetails(
             @PathVariable("courseID") String courseID,
@@ -54,18 +48,10 @@ public class CourseController {
             return isNotValidToken.get();
         }
 
-        try {
-            Course course = courseService.findCourse(courseID);
-            if (course == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return new ResponseEntity<>(course, HttpStatus.OK);
-        } catch (NumberFormatException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        Course course = courseService.findCourse(courseID);
+        return ResponseUtils.getValueOrNotFound(course);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, value = "/{courseID}/terms")
     public ResponseEntity getCourseTerms(
             @PathVariable("courseID") String courseID,
@@ -75,17 +61,10 @@ public class CourseController {
         if(isNotValidToken.isPresent()){
             return isNotValidToken.get();
         }
-        try {
-            Course course = courseService.findCourse(courseID);
-            return new ResponseEntity<>(course.getClasses(), HttpStatus.OK);
-        } catch (NumberFormatException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Course course = courseService.findCourse(courseID);
+        return ResponseUtils.getValueOrNotFound(course);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAllCourses(
             @RequestHeader(value="Authorization") String token
@@ -96,13 +75,9 @@ public class CourseController {
         }
 
         Iterable<Course> courses = courseService.findAllCourses();
-        if (courses == null) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(courses, HttpStatus.OK);
+        return ResponseUtils.getValueOrError(courses);
     }
 
-    @CrossOrigin
     @RequestMapping(method = RequestMethod.PUT, value = "/{courseID}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateCourse(
             @PathVariable("courseID") String courseID,
@@ -114,15 +89,9 @@ public class CourseController {
             return isNotValidToken.get();
         }
 
-        try {
-            if (courseService.findCourse(courseID) == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return new ResponseEntity<>(courseService.prepareUpdatedCourse(courseID, course), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        if (courseService.findCourse(courseID) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(courseService.prepareUpdatedCourse(courseID, course), HttpStatus.OK);
     }
-
-
 }
