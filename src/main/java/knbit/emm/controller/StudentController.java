@@ -52,35 +52,11 @@ public class StudentController {
         }
 
         Student student = studentService.findStudent(studentId);
-        return ResponseUtils.getValueOrError(student);
-    }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{studentId}/markets")
-    public ResponseEntity getStudentMarket(
-            @PathVariable("studentId") String studentId,
-            @RequestHeader(value="Authorization") String token
-    ) {
-        Optional<ResponseEntity> isNotValidToken = TokenUtils.prepareResponseEntityIfInvalidStudentToken(token, studentId);
-        if(isNotValidToken.isPresent()){
-            return isNotValidToken.get();
+        if (student == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        Student student = studentService.findStudent(studentId);
-        return ResponseUtils.getValueOrError(student);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/{studentId}/swapsAB")
-    public ResponseEntity getStudentSwapsAB (
-            @PathVariable("studentId") String studentId,
-            @RequestHeader(value="Authorization") String token
-    ) {
-        Optional<ResponseEntity> isNotValidToken = TokenUtils.prepareResponseEntityIfInvalidStudentToken(token, studentId);
-        if(isNotValidToken.isPresent()){
-            return isNotValidToken.get();
-        }
-
-        Student student = studentService.findStudent(studentId);
-        return ResponseUtils.getValueOrError(student);
+        return ResponseUtils.getValueOrError(student.getSwaps());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{studentId}")

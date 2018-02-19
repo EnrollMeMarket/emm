@@ -48,20 +48,6 @@ public class MarketController {
         return new ResponseEntity<>(marketService.findPossibleForUserMarkets(markets, token), HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{name}/students")
-    public ResponseEntity getAllStudents(
-            @PathVariable("name") String name,
-            @RequestHeader(value = "Authorization") String token
-    ) {
-        Optional<ResponseEntity> isNotValidToken = TokenUtils.prepareResponseEntityIfInvalidAdminOrStarostaToken(token);
-        if(isNotValidToken.isPresent()){
-            return isNotValidToken.get();
-        }
-
-        Market market = marketService.findMarket(name);
-        return ResponseUtils.getValueOrError(market);
-    }
-
     @RequestMapping(method = RequestMethod.GET, value="/{name}/courses")
     public ResponseEntity getAllCourses(
             @PathVariable("name") String name,
