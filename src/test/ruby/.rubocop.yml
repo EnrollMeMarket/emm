@@ -1,0 +1,12 @@
+Layout/CaseIndentation:
+  EnforcedStyle: case
+  IndentOneStep: true
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  CountComments: false
+
+Style/Documentation:
+  Enabled: false
