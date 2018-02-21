@@ -16,7 +16,7 @@ feature 'Login and logoff' do
     expect_tabs_logged(true)
   end
 
-  it 'as year representative' do
+  it 'as foreman' do
     find(FOREMAN_RADIO_BUTTON).click
     find(DEBUG_LOGIN_BUTTON).click
     expect(find(USER_ROLE_LABEL).text).to include('Starosta')

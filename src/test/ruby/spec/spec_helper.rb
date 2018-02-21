@@ -17,3 +17,5 @@ RSpec.configure do |config|
 
   config.before(:each) { visit 'http://localhost:8080/' }
 end
+
+SPEC_ROOT = File.expand_path('../..', __FILE__)

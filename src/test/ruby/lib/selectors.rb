@@ -2,8 +2,8 @@ module IntroductionGuide
   INTRODUCTION_LINK = "a[href='helpIntro']".freeze
 
   INTRODUCTION_TEXT = 'div.jumbotron h2.text-center'.freeze
-  NEXT_BUTTON = "button[ng-click='helpIntro.page=helpIntro.page+1']".freeze
-  PREV_BUTTON = "button[ng-click='helpIntro.page=helpIntro.page-1']".freeze
+  INTRO_NEXT_BUTTON = "button[ng-click='helpIntro.page=helpIntro.page+1']".freeze
+  INTRO_PREV_BUTTON = "button[ng-click='helpIntro.page=helpIntro.page-1']".freeze
   PAGE_TITLES = [
     'Introduction guide',
     'Welcome to Enroll-Me Market!',
@@ -16,7 +16,7 @@ module IntroductionGuide
   ].freeze
 end
 
-module HelpPage
+module HelpTab
   HELP_HEADER_TEXT = 'div.jumbotron h2'.freeze
   HELP_WELCOME_TEXT = 'div.well.text-center'.freeze
 
@@ -57,6 +57,17 @@ module LoginPage
   STUDENT_RADIO_BUTTON = "input[value='STUDENT']".freeze
   FOREMAN_RADIO_BUTTON = "input[value='STAROSTA']".freeze
   ADMIN_RADIO_BUTTON = "input[value='ADMIN']".freeze
+end
+
+module MarketsTab
+  NEW_MARKET_BUTTON = "button[ng-click='marketList.goToCreateMarket()']".freeze
+  MARKET_NAME_INPUT = "input[name='marketName']".freeze
+  CHOOSE_FILES_INPUT = 'input#fileToUpload'.freeze
+  MARKET_NEXT_BUTTON = "button[ng-click='createMarket.nextPage()']".freeze
+  SELECT_ALL_CHECKBOX = "input[data-ng-model='createMarket.selectAll']".freeze
+  START_NOW_BUTTON = "button[ng-click='createMarket.startNowFunction()']".freeze
+  MARKET_CREATED_OK_BUTTON = "button[ng-click='notification.close()']".freeze
+  CREATED_MARKETS_NAMES = 'div.col-xs-3.col-md-3.col-lg-3.ng-binding'.freeze
 end
 
 module NavigationBar

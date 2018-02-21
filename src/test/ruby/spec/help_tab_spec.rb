@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 require_relative '../lib/selectors'
 
-include HelpPage, LoginPage, NavigationBar
+include HelpTab, LoginPage, NavigationBar
 
 feature 'Help tab' do
   it 'has got all crucial elements' do

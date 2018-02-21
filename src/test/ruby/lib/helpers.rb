@@ -23,3 +23,7 @@ end
 def page_title(page_number)
   find("div[ng-show='helpIntro.page==#{page_number}'] h2").text
 end
+
+def test_files
+  ["#{SPEC_ROOT}/test_data/test_plan.txt", "#{SPEC_ROOT}/test_data/test_terms_descriptions.txt"]
+end
