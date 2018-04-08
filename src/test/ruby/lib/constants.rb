@@ -1,8 +1,7 @@
 module Calendar
   OOPS_WARNING_HEADER = 'h1#ngdialog1-aria-labelledby'.freeze
   OOPS_WARNING_TEXT = 'p#ngdialog1-aria-describedby'.freeze
-  OOPS_WARNING_EXPECTED_TEXT = "You're not assigned to any existing market. "\
-                               "If you think this is an error, contact your year's representative.".freeze
+  OOPS_WARNING_EXPECTED_TEXT = "You're not assigned to any existing market. If you think this is an error, contact your year's representative.".freeze
   OOPS_WARNING_CLOSE_BUTTON = "button[ng-click='notification.close()']".freeze
 end
 
