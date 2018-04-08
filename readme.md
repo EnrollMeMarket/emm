@@ -1,10 +1,12 @@
 # Enroll Me Market
 
 Enroll Me Market is an extension to an existing application (Enroll-Me), which serves students to find an optimal classes timetable, based on their preferences.
-However, once you get your timetable, you might not be fully satisfied with it. But maybe there is someone you could swap your terms with, making both of you happy?
+However, once you get your timetable, you might not be fully satisfied with it. 
+But maybe there is someone you could swap your terms with, making both of you happy?
 
 That is where we come in! A students' representative can download the timetables of a group of students as a CSV file from Enroll-Me and upload in to the Market. Then everyone can mark which classes they would like to give away and which ones they could get in exchange.
-As soon as we find a matching pair of students, we perform an exchange between them. A summary of successful swaps can then be downloaded by the students' representative.
+As soon as we find a matching pair of students, we perform an exchange between them. 
+A summary of successful swaps can then be downloaded by the students' representative.
 
 ### Our Team
 * [Michał Tatuśko](https://pl.linkedin.com/in/michaltatusko) - team leader and QA
@@ -43,25 +45,25 @@ See [End-to-End tests readme](/src/test/ruby/readme.md) for more information.
 
 ### Special thanks
 There were many people who helped us a lot during the development of our project. We want to sincerely thank all of them.
-Piotr Leśniak
-Przemysław Poźniak
-Dawid Suder
-Andrzej Piechowicz
-Michał Osadnik
-Tomasz Czajęcki
-Łukasz Kaźmierczak
-Bartosz Radzyński
-Joanna Roczniak
-Andrzej Pisarek
-Szymon Seget
-Piotr Bochenek
-Mariusz Skrabacz
-Marek Powroźnik
-Jacek Stobiecki
-Joanna Sendorek
-Bartłomiej Grochal
-Michał Kawałek
-Piotr Grabiec
-Gerard Jarzębak
-Kamil Komeda
-Matuesz Windak
+* Piotr Leśniak
+* Przemysław Poźniak
+* Dawid Suder
+* Andrzej Piechowicz
+* Michał Osadnik
+* Tomasz Czajęcki
+* Łukasz Kaźmierczak
+* Bartosz Radzyński
+* Joanna Roczniak
+* Andrzej Pisarek
+* Szymon Seget
+* Piotr Bochenek
+* Mariusz Skrabacz
+* Marek Powroźnik
+* Jacek Stobiecki
+* Joanna Sendorek
+* Bartłomiej Grochal
+* Michał Kawałek
+* Piotr Grabiec
+* Gerard Jarzębak
+* Kamil Komeda
+* Matuesz Windak
