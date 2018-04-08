@@ -11,9 +11,9 @@ shared_examples 'Create market' do |is_foreman|
     find(DEBUG_LOGIN_BUTTON).click
 
     find(MARKETS_TAB).click
-    button = find(NEW_MARKET_BUTTON)
-    expect(button.text).to eq('New Market')
-    button.click
+    new_market_button = find(NEW_MARKET_BUTTON)
+    expect(new_market_button.text).to eq('New Market')
+    new_market_button.click
 
     find(MARKET_NAME_INPUT).set(test_market_name)
     find(CHOOSE_FILES_INPUT).set(test_files)
@@ -22,7 +22,9 @@ shared_examples 'Create market' do |is_foreman|
     find(SELECT_ALL_CHECKBOX).click
     find(MARKET_NEXT_BUTTON).click
     find(START_NOW_BUTTON).click
-    find(MARKET_CREATED_OK_BUTTON).click
+
+    sleep(0.5) until (ok_button = find_all(MARKET_CREATED_OK_BUTTON).first)
+    ok_button.click
 
     expect(find_all(CREATED_MARKETS_NAMES).first.text).to eq(test_market_name)
   end

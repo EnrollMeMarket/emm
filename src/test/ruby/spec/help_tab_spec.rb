@@ -16,10 +16,12 @@ feature 'Help tab' do
     expect(questions.length).to eq(9)
     expect(questions.map(&:text)).to eq(EXPECTED_QUESTIONS)
 
-    questions.each_with_index do |question, index|
+    answers = []
+    questions.each_with_index do |question|
       question.click
-      expect(find(ANSWER).text).to eq(EXPECTED_ANSWERS[index])
+      answers.push(find(ANSWER).text)
     end
+    expect(answers).to eq(EXPECTED_ANSWERS)
 
     find(LOGOUT_BUTTON).click
   end
