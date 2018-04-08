@@ -27,3 +27,8 @@ end
 def test_files
   ["#{SPEC_ROOT}/test_data/test_plan.txt", "#{SPEC_ROOT}/test_data/test_terms_descriptions.txt"]
 end
+
+def wait_and_click(selector)
+  sleep(0.5) until (element = find_all(selector).first)
+  element.click
+end

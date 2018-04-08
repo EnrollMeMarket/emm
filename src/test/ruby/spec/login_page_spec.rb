@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../lib/selectors'
+require_relative '../lib/constants'
 
 include LoginPage, NavigationBar
 

@@ -68,6 +68,9 @@ module MarketsTab
   START_NOW_BUTTON = "button[ng-click='createMarket.startNowFunction()']".freeze
   MARKET_CREATED_OK_BUTTON = "button[ng-click='notification.close()']".freeze
   CREATED_MARKETS_NAMES = 'div.col-xs-3.col-md-3.col-lg-3.ng-binding'.freeze
+  CREATED_MARKETS_DETAILS_BUTTONS = 'button.btn.details-button.ng-binding'.freeze
+  CLOSE_MARKET_BUTTON = "button[ng-click='marketDetails.finishMarket()']".freeze
+  FINISH_MARKET_YES_BUTTON = "button[ng-click='yesNoDialog.closeConfirm()']".freeze
 end
 
 module NavigationBar

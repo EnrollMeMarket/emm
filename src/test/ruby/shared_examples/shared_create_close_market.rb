@@ -1,9 +1,9 @@
 require_relative '../spec/spec_helper'
-require_relative '../lib/selectors'
+require_relative '../lib/constants'
 
 include LoginPage, MarketsTab
 
-shared_examples 'Create market' do |is_foreman|
+shared_examples 'Create and close market' do |is_foreman|
   it "As #{is_foreman ? 'foreman' : 'admin'}" do
     test_market_name = Time.now.to_i.to_s
 
@@ -22,10 +22,12 @@ shared_examples 'Create market' do |is_foreman|
     find(SELECT_ALL_CHECKBOX).click
     find(MARKET_NEXT_BUTTON).click
     find(START_NOW_BUTTON).click
+    wait_and_click(MARKET_CREATED_OK_BUTTON)
 
-    sleep(0.5) until (ok_button = find_all(MARKET_CREATED_OK_BUTTON).first)
-    ok_button.click
-
-    expect(find_all(CREATED_MARKETS_NAMES).first.text).to eq(test_market_name)
+    created_market = find_all(CREATED_MARKETS_NAMES).first
+    expect(created_market.text).to eq(test_market_name)
+    find_all(CREATED_MARKETS_DETAILS_BUTTONS).first.click
+    find(CLOSE_MARKET_BUTTON).click
+    wait_and_click(FINISH_MARKET_YES_BUTTON)
   end
 end

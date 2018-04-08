@@ -1,5 +1,5 @@
 require_relative 'spec_helper'
-require_relative '../lib/selectors'
+require_relative '../lib/constants'
 
 include HelpTab, LoginPage, NavigationBar
 
@@ -17,7 +17,7 @@ feature 'Help tab' do
     expect(questions.map(&:text)).to eq(EXPECTED_QUESTIONS)
 
     answers = []
-    questions.each_with_index do |question|
+    questions.each do |question|
       question.click
       answers.push(find(ANSWER).text)
     end
