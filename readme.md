@@ -23,7 +23,7 @@ A summary of successful swaps can then be downloaded by the students' representa
 	* Java 8
 	* Spring
 	* Hibernate
-	* MySQl
+	* MySQL
 	* Scala
 	* Maven
 * Edn-to-End tests:
