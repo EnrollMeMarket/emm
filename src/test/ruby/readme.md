@@ -7,6 +7,7 @@ Install:
 * ChromeDriver 2.36
 
 Run:
+* `cd src/test/ruby`
 * `gem install bundler`
 * `bundle install`
 
